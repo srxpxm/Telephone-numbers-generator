@@ -1,0 +1,1447 @@
+/* Collection-only design. The rest of Signal Atelier is intentionally untouched. */
+#view-collection {
+  --vault-ink: #f4f0eb;
+  --vault-muted: #b7b9ca;
+  --vault-stage: #141520;
+  --vault-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+.vault-icon {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  vertical-align: middle;
+}
+.vault-finish-common {
+  --finish-a: #303e53;
+  --finish-b: #172235;
+  --finish-edge: #a6b3c5;
+  --finish-ink: #e4edf9;
+  --finish-light: 152, 175, 204;
+}
+.vault-finish-uncommon {
+  --finish-a: #34594e;
+  --finish-b: #142e2b;
+  --finish-edge: #a9c8b8;
+  --finish-ink: #e0f3e7;
+  --finish-light: 143, 195, 169;
+}
+.vault-finish-rare {
+  --finish-a: #344d91;
+  --finish-b: #17264e;
+  --finish-edge: #b1c3ef;
+  --finish-ink: #e4ecff;
+  --finish-light: 125, 157, 240;
+}
+.vault-finish-epic {
+  --finish-a: #574269;
+  --finish-b: #2a1e3e;
+  --finish-edge: #cbb4dc;
+  --finish-ink: #f1e2ff;
+  --finish-light: 189, 155, 220;
+}
+.vault-finish-legendary {
+  --finish-a: #6a5737;
+  --finish-b: #2b241b;
+  --finish-edge: #dbc593;
+  --finish-ink: #f5e6c6;
+  --finish-light: 211, 183, 128;
+}
+.vault-finish-mythic {
+  --finish-a: #55495e;
+  --finish-b: #292433;
+  --finish-edge: #dac9b3;
+  --finish-ink: #f7e9d8;
+  --finish-light: 202, 175, 215;
+}
+#view-collection .page-head {
+  margin-bottom: 24px;
+}
+#view-collection .collection-vault {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 420px;
+  margin-bottom: 28px;
+  border-radius: 20px;
+  background: #141520;
+  color: var(--vault-ink);
+  box-shadow: 0 18px 42px -28px rgba(22, 18, 43, 0.55);
+}
+#view-collection .collection-vault::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 83% 30%, rgba(var(--finish-light), 0.13), transparent 56%),
+    linear-gradient(120deg, #1b1b29, #11141e 80%);
+  pointer-events: none;
+}
+#view-collection .collection-vault::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(229, 221, 239, 0.1);
+  border-radius: inherit;
+  pointer-events: none;
+}
+#view-collection .vault-copy {
+  align-self: center;
+  padding: 36px 0 36px 36px;
+  min-width: 0;
+  z-index: 2;
+}
+#view-collection .vault-title {
+  color: #f7f5f2;
+  font-size: 23px;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.35;
+  margin-bottom: 23px;
+  max-width: 330px;
+}
+#view-collection .vault-rarity {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--finish-ink);
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+#view-collection .vault-rarity > span {
+  color: #b6b5c9;
+  padding-left: 8px;
+  border-left: 1px solid #5a5468;
+}
+#view-collection .vault-rarity .vault-icon {
+  width: 18px;
+  height: 18px;
+}
+#view-collection .vault-phone {
+  font-size: clamp(25px, 2.7vw, 40px);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.035em;
+}
+#view-collection .vault-phone .num {
+  color: #fff8ed;
+  gap: 0.2em;
+}
+#view-collection .vault-phone .num-prefix {
+  color: #b9b5cb;
+  font-size: 0.58em;
+  letter-spacing: -0.015em;
+  margin-right: 0.08em;
+}
+#view-collection .vault-description {
+  font-size: 14px;
+  line-height: 1.65;
+  color: #bdbbcc;
+  max-width: 365px;
+  margin-top: 12px;
+  text-wrap: pretty;
+}
+#view-collection .vault-valuation {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+#view-collection .vault-valuation > span {
+  font-size: 14px;
+  color: #b8b5c8;
+}
+#view-collection .vault-price {
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1.45;
+  color: #fff7e8;
+  overflow-wrap: anywhere;
+}
+#view-collection .vault-meta {
+  font-size: 14px;
+  color: #b8b5c8;
+  margin-top: 7px;
+  line-height: 1.6;
+}
+#view-collection .vault-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 26px;
+}
+#view-collection .vault-primary,
+#view-collection .vault-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 46px;
+  padding: 11px 16px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  transition:
+    background-color 0.2s,
+    color 0.2s,
+    border-color 0.2s;
+}
+#view-collection .vault-primary {
+  color: #282432;
+  background: #f0e5d7;
+}
+#view-collection .vault-primary:hover {
+  background: #fff6eb;
+}
+#view-collection .vault-secondary {
+  background: transparent;
+  color: #c7c5d5;
+}
+#view-collection .vault-secondary:hover {
+  color: #fff;
+  background: #2a2939;
+}
+#view-collection .collection-vault :focus-visible {
+  outline-color: #e0c8f8;
+  outline-offset: 4px;
+}
+.vault-stage {
+  position: relative;
+  min-width: 0;
+  min-height: 420px;
+  isolation: isolate;
+}
+.vault-model-host {
+  position: absolute;
+  inset: 20px 8px 42px;
+  cursor: grab;
+  touch-action: pan-y;
+  border-radius: 12px;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.vault-model-host.is-dragging {
+  cursor: grabbing;
+}
+.vault-model-host:focus-visible {
+  outline: 2px solid #d3b7ef;
+  outline-offset: -5px;
+}
+.vault-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+}
+.vault-fallback {
+  display: flex;
+  position: absolute;
+  inset: 0;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.vault-webgl .vault-fallback {
+  visibility: hidden;
+}
+.vault-floor {
+  position: absolute;
+  bottom: 17%;
+  left: 15%;
+  width: 72%;
+  height: 10%;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.62);
+  filter: blur(17px);
+  transform: rotate(-9deg);
+  pointer-events: none;
+}
+#view-collection .vault-icon-button,
+.vault-viewer-controls > button {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid #535064;
+  border-radius: 8px;
+  background: rgba(35, 34, 50, 0.65);
+  color: #e5dcec;
+  transition:
+    border-color 0.18s,
+    background-color 0.18s;
+}
+#view-collection .vault-icon-button:hover,
+.vault-viewer-controls > button:hover {
+  background: #393347;
+  border-color: #91809f;
+}
+#view-collection .vault-icon-button:disabled {
+  color: #9c94ad;
+  opacity: 0.65;
+  cursor: default;
+}
+#view-collection .vault-pause {
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  width: 44px;
+  height: 44px;
+}
+#view-collection .vault-switcher {
+  position: absolute;
+  bottom: 16px;
+  right: 18px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+#view-collection .vault-switcher .vault-icon-button {
+  border-color: transparent;
+  background: transparent;
+}
+#view-collection .vault-switcher .vault-icon-button:hover {
+  background: #302b40;
+  border-color: #62586e;
+}
+#view-collection .vault-counter {
+  font-size: 14px;
+  color: #c8c2d3;
+  min-width: 58px;
+  text-align: center;
+}
+#view-collection .vault-gesture {
+  position: absolute;
+  left: 20px;
+  bottom: 29px;
+  color: #aaa5bb;
+  font-size: 13px;
+  pointer-events: none;
+}
+.vault-static-card {
+  max-width: 380px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 78%;
+  aspect-ratio: 1.58;
+  padding: 24px;
+  color: var(--finish-ink);
+  border: 1px solid var(--finish-edge);
+  border-radius: 15px;
+  background:
+    linear-gradient(137deg, rgba(247, 237, 216, 0.14), transparent 43%, rgba(220, 219, 255, 0.12)),
+    linear-gradient(135deg, var(--finish-a), var(--finish-b));
+  box-shadow:
+    2px 3px 0 #948394,
+    5px 9px 0 #24212f,
+    5px 32px 45px -15px rgba(0, 0, 0, 0.7);
+  transform: perspective(900px) rotateX(10deg) rotateY(-20deg) rotateZ(-8deg);
+}
+.vault-static-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 30px;
+  line-height: 1;
+  font-weight: 600;
+}
+.vault-static-brand > span {
+  font-size: 11px;
+  font-weight: 400;
+}
+.vault-static-card .vault-contact {
+  position: absolute;
+  left: 25px;
+  top: 34%;
+  width: 40px;
+  height: 32px;
+  color: #cfbd9d;
+}
+.vault-static-number {
+  margin-top: 50px;
+  font-size: clamp(19px, 2vw, 31px);
+  font-weight: 500;
+  line-height: 1.5;
+}
+.vault-static-number .num {
+  color: inherit;
+  gap: 0.2em;
+}
+.vault-static-number .num-prefix {
+  font-size: 0.6em;
+  color: inherit;
+}
+.vault-static-foot {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  margin-top: 16px;
+  opacity: 0.75;
+}
+#view-collection .coll-summary {
+  margin-bottom: 24px;
+  padding: 0 0 22px;
+  border-bottom: 1px solid #d8e0ed;
+}
+#view-collection .coll-summary .stat {
+  padding: 0 24px;
+}
+#view-collection .coll-summary .stat:first-child {
+  padding-left: 0;
+}
+#view-collection .coll-summary .stat-label {
+  color: #606d85;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+#view-collection .coll-summary .stat-value {
+  color: #283650;
+  font-size: 25px;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+#view-collection .vault-commandbar {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+#view-collection .vault-commandbar .field-search {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+#view-collection .vault-commandbar .field-label {
+  position: absolute;
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+#view-collection .vault-commandbar .search-input {
+  background: #fff;
+  font-size: 16px;
+  min-height: 46px;
+  padding-left: 41px;
+  border-color: #a6b1c5;
+}
+#view-collection .vault-commandbar .input-icon .ico {
+  left: 14px;
+}
+#view-collection .vault-commandbar .field-search .hint {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #606d85;
+}
+#view-collection .vault-filter-toggle {
+  background: #fff;
+  border-color: #a6b1c5;
+  padding: 10px 16px;
+  min-height: 46px;
+  color: #374567;
+  font-size: 14px;
+}
+#view-collection .vault-filter-toggle:hover,
+#view-collection .vault-filter-toggle[aria-expanded='true'] {
+  background: #e9eeff;
+  border-color: #7e94df;
+}
+#view-collection .vault-filter-count {
+  background: #3d54da;
+  color: #fff;
+  border-radius: 4px;
+  min-width: 20px;
+  font-size: 13px;
+}
+#view-collection .vault-quick-reset {
+  min-height: 46px;
+  font-size: 14px;
+}
+#view-collection .vault-rarity-tabs {
+  gap: 8px;
+  margin-bottom: 0;
+  padding-bottom: 18px;
+}
+#view-collection .vault-rarity-tabs .rchip {
+  border-color: #d7deeb;
+  background: #f9faff;
+  border-radius: 7px;
+  padding: 7px 12px;
+  gap: 8px;
+}
+#view-collection .vault-rarity-tabs .rchip:hover {
+  border-color: #a4b3d1;
+  background: #fff;
+}
+#view-collection .vault-rarity-tabs .rchip.active {
+  color: #293ec0;
+  border-color: #6d84dc;
+  background: #e9eeff;
+}
+#view-collection .vault-rarity-tabs .rchip b {
+  background: #e9edf6;
+  color: #546482;
+}
+#view-collection .vault-rarity-tabs .rchip.active b {
+  color: #2f45bb;
+  background: #d7e0ff;
+}
+#view-collection .vault-advanced {
+  margin: 0 0 18px;
+  padding: 18px;
+  background: #f9faff;
+  border-color: #d5ddec;
+}
+#view-collection .vault-advanced .toolbar {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+#view-collection .vault-advanced .input {
+  font-size: 14px;
+}
+#view-collection .vault-advanced .reset-filters {
+  min-height: 44px;
+}
+#view-collection .vault-list-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 8px 0 18px;
+}
+#view-collection .vault-list-title {
+  font-size: 19px;
+  color: #273650;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+#view-collection .vault-list-head .result-info {
+  margin: 0;
+  color: #5f6d86;
+  font-size: 14px;
+}
+#view-collection .ncard-grid {
+  gap: 18px;
+}
+#view-collection .ncard {
+  padding: 18px;
+  border-color: #d7dfeb;
+  background: #fff;
+  border-radius: 14px;
+  transition: border-color 0.2s;
+}
+#view-collection .ncard:hover {
+  border-color: #a3b0c9;
+}
+#view-collection .ncard-top {
+  display: flex;
+  min-height: 32px;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 15px;
+}
+#view-collection .ncard-top > .chip-gold {
+  order: 3;
+  margin-right: auto;
+}
+#view-collection .ncard-chips {
+  margin-left: auto;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+#view-collection .ncard .badge {
+  font-size: 12px;
+}
+#view-collection .ncard .class-chip,
+#view-collection .ncard .ff-chip {
+  font-size: 12px;
+  padding: 3px 6px;
+}
+#view-collection .vault-ticket {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+  min-width: 0;
+  width: 100%;
+  aspect-ratio: 1.6;
+  padding: 17px 18px 14px;
+  margin: 0 0 16px;
+  color: var(--finish-ink);
+  border: 1px solid var(--finish-edge);
+  border-radius: 11px;
+  text-align: left;
+  background:
+    linear-gradient(125deg, rgba(255, 247, 229, 0.09), transparent 47%, rgba(241, 225, 255, 0.07)),
+    linear-gradient(135deg, var(--finish-a), var(--finish-b));
+  box-shadow:
+    0 3px 0 -1px #9c91a0,
+    0 12px 18px -12px rgba(26, 25, 48, 0.45);
+  transform: perspective(800px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transform-style: preserve-3d;
+  transition:
+    transform 0.55s var(--vault-ease),
+    border-color 0.2s;
+}
+#view-collection .vault-ticket::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(242, 233, 220, 0.17);
+  border-radius: 6px;
+  z-index: -1;
+  pointer-events: none;
+}
+#view-collection .vault-ticket::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0.45;
+  background: radial-gradient(
+    ellipse at var(--light-x, 12%) var(--light-y, 0%),
+    rgba(255, 245, 232, 0.26),
+    transparent 60%
+  );
+  transition: opacity 0.25s;
+}
+#view-collection .vault-ticket.is-tilting {
+  transition: transform 0.12s ease-out;
+  will-change: transform;
+}
+#view-collection .vault-ticket:hover::after,
+#view-collection .vault-ticket:focus-visible::after {
+  opacity: 0.8;
+}
+#view-collection .vault-ticket-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 25px;
+  line-height: 1;
+  font-weight: 600;
+}
+#view-collection .vault-ticket-brand > span {
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  opacity: 0.8;
+}
+#view-collection .vault-ticket .vault-contact {
+  position: absolute;
+  top: 38%;
+  left: 19px;
+  width: 30px;
+  height: 25px;
+  color: #d0c19f;
+  opacity: 0.95;
+}
+#view-collection .vault-ticket .ncard-number {
+  display: block;
+  margin: 36px 0 10px;
+  color: var(--finish-ink);
+  font-size: clamp(18px, 1.55vw, 25px);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+#view-collection .vault-ticket .num {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.22em;
+  color: inherit;
+}
+#view-collection .vault-ticket .num-prefix {
+  display: block;
+  font-size: 0.6em;
+  color: inherit;
+  opacity: 0.7;
+  margin-right: 0.1em;
+}
+#view-collection .vault-ticket-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  opacity: 0.8;
+}
+#view-collection .vault-ticket-footer > span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+#view-collection .vault-ticket-footer .vault-icon {
+  width: 13px;
+  height: 13px;
+}
+#view-collection .ncard-pattern {
+  display: grid;
+  gap: 4px;
+  font-size: 14px;
+  color: #4e607b;
+  min-height: 68px;
+  align-content: start;
+}
+#view-collection .ncard-pattern .hint {
+  color: #657188;
+  font-size: 13px;
+}
+#view-collection .ncard-values {
+  margin: 15px 0 18px;
+  padding-top: 15px;
+  border-top: 1px solid #e2e7ef;
+  gap: 13px;
+}
+#view-collection .ncard-values .vg-label {
+  font-size: 13px;
+  color: #637189;
+}
+#view-collection .ncard-values .ncard-value {
+  color: #2a3854;
+  font-size: 25px;
+  font-weight: 500;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+#view-collection .ncard-actions {
+  margin-top: auto;
+}
+#view-collection .ncard-actions .btn {
+  font-size: 14px;
+  background: #f4f6fc;
+  border-color: #d3dcee;
+  color: #3b517f;
+  min-height: 44px;
+}
+#view-collection .ncard-actions .btn:hover {
+  background: #e6edff;
+  border-color: #97abe0;
+  color: #263fa6;
+}
+#view-collection .ncard-foot {
+  font-size: 12px;
+  color: #66728a;
+  margin-top: 14px;
+}
+#view-collection .ncard .offer {
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+#view-collection .ncard .offer .hint {
+  font-size: 13px;
+}
+#view-collection .ncard-grid > .empty {
+  min-height: 210px;
+  padding: 35px 24px;
+  border-style: dashed;
+  background: transparent;
+}
+#view-collection .ncard-grid > .empty .empty-symbol {
+  display: none;
+}
+#view-collection .more-wrap {
+  margin-top: 24px;
+}
+.vault-clipboard {
+  position: fixed;
+  left: -10000px;
+  top: 0;
+}
+.vault-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+/* Protected, keyboard-accessible object inspection. Uses the original modal manager. */
+.modal.vault-viewer {
+  padding: 0;
+  width: min(1080px, calc(100vw - 40px));
+  max-width: 1080px;
+  background: #141520;
+  color: #f0ecf5;
+  border: 1px solid #555064;
+  border-radius: 18px;
+}
+.vault-viewer .modal-head {
+  padding: 22px 26px;
+  border-color: #3b3548;
+}
+.vault-viewer .modal-title {
+  color: #ded7e9;
+  font-size: 16px;
+  font-weight: 500;
+}
+.vault-viewer .modal-x {
+  color: #d8d0e4;
+  background: #252333;
+  border-color: #5a536a;
+  width: 44px;
+  height: 44px;
+}
+.vault-viewer .modal-x:hover {
+  background: #393246;
+  color: #fff;
+}
+.vault-viewer .modal-body {
+  padding: 0;
+}
+.vault-viewer .modal-foot {
+  border-color: #3b3548;
+  padding: 18px 26px;
+}
+.vault-viewer .modal-foot .btn-primary {
+  color: #272431;
+  background: #f0e5d7;
+  border-color: #f0e5d7;
+}
+.vault-viewer .modal-foot .btn-primary:hover {
+  background: #fff6eb;
+}
+.vault-viewer :focus-visible {
+  outline-color: #d9b9f7;
+}
+.vault-viewer-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  min-height: 420px;
+  background: radial-gradient(ellipse at 20% 30%, rgba(var(--finish-light), 0.12), transparent 55%);
+}
+.vault-viewer-scene {
+  position: relative;
+  min-height: 400px;
+}
+.vault-viewer-host {
+  inset: 0 6px 74px;
+}
+.vault-viewer-controls {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  bottom: 22px;
+  left: 0;
+  width: 100%;
+}
+.vault-viewer-controls > .vault-viewer-reset {
+  width: auto;
+  padding: 0 16px;
+  gap: 8px;
+  font-size: 14px;
+}
+.vault-viewer-info {
+  padding: 32px 32px 28px 12px;
+  align-self: center;
+  min-width: 0;
+}
+.vault-viewer-rarity {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 14px;
+  color: var(--finish-ink);
+  margin-bottom: 18px;
+}
+.vault-viewer-number {
+  font-size: 30px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+.vault-viewer-number .num {
+  color: #fff3e4;
+  gap: 0.2em;
+}
+.vault-viewer-number .num-prefix {
+  font-size: 0.6em;
+  color: #c8bbd4;
+}
+.vault-viewer-pattern {
+  font-size: 14px;
+  color: #c5bbd3;
+  line-height: 1.7;
+}
+.vault-viewer-facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px 16px;
+  margin: 26px 0 0;
+}
+.vault-viewer-facts > div:first-child {
+  grid-column: 1 / -1;
+}
+.vault-viewer-facts dt {
+  font-size: 13px;
+  color: #b8afc7;
+}
+.vault-viewer-facts dd {
+  margin: 4px 0 0;
+  font-size: 15px;
+  color: #eee5f6;
+  overflow-wrap: anywhere;
+}
+.vault-viewer-facts dd strong {
+  font-size: 27px;
+  font-weight: 500;
+  color: #fff1df;
+}
+.vault-viewer-hint {
+  color: #b8afc7;
+  font-size: 13px;
+  line-height: 1.65;
+  margin-top: 26px;
+}
+@media (min-width: 1600px) {
+  #view-collection .vault-copy {
+    padding-left: 44px;
+  }
+  #view-collection .vault-phone {
+    font-size: 43px;
+  }
+}
+@media (max-width: 1200px) {
+  #view-collection .collection-vault {
+    grid-template-columns: 1fr 1fr;
+  }
+  #view-collection .vault-copy {
+    padding-left: 26px;
+  }
+  #view-collection .vault-title {
+    font-size: 21px;
+  }
+  #view-collection .vault-phone {
+    font-size: 29px;
+  }
+  #view-collection .vault-actions {
+    gap: 3px;
+  }
+  #view-collection .vault-secondary {
+    padding-inline: 11px;
+  }
+  #view-collection .vault-gesture {
+    left: 15px;
+    bottom: 76px;
+    font-size: 12px;
+  }
+  #view-collection .ncard-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  #view-collection .vault-ticket .ncard-number {
+    font-size: 27px;
+  }
+}
+@media (max-width: 1000px) {
+  #view-collection .vault-phone {
+    font-size: 32px;
+  }
+  #view-collection .vault-gesture {
+    bottom: 29px;
+  }
+  #view-collection .vault-ticket .ncard-number {
+    font-size: 27px;
+  }
+}
+@media (max-width: 800px) {
+  #view-collection .vault-title {
+    font-size: 21px;
+  }
+  #view-collection .vault-phone {
+    font-size: 27px;
+  }
+  #view-collection .vault-copy {
+    padding-left: 24px;
+  }
+  #view-collection .vault-actions {
+    align-items: stretch;
+  }
+  #view-collection .vault-copy-button > span {
+    display: none;
+  }
+  #view-collection .vault-price {
+    font-size: 26px;
+  }
+  #view-collection .vault-gesture {
+    bottom: 74px;
+  }
+  #view-collection .coll-summary .stat {
+    padding: 0 16px;
+  }
+  #view-collection .coll-summary .stat:first-child {
+    padding-left: 0;
+  }
+  #view-collection .coll-summary .stat-value {
+    font-size: 22px;
+  }
+  #view-collection .vault-advanced .toolbar {
+    grid-template-columns: 1fr 1fr;
+  }
+  #view-collection .vault-ticket .ncard-number {
+    font-size: 24px;
+  }
+  .vault-viewer-layout {
+    grid-template-columns: 1fr;
+  }
+  .vault-viewer-scene {
+    min-height: 330px;
+  }
+  .vault-viewer-info {
+    padding: 14px 28px 28px;
+  }
+}
+@media (max-width: 600px) {
+  #view-collection .page-head {
+    margin-bottom: 20px;
+  }
+  #view-collection .collection-vault {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    border-radius: 16px;
+    margin-bottom: 24px;
+  }
+  #view-collection .vault-stage {
+    order: -1;
+    min-height: 265px;
+  }
+  #view-collection .vault-model-host {
+    inset: 7px 0 10px;
+  }
+  #view-collection .vault-pause {
+    top: auto;
+    right: auto;
+    bottom: 10px;
+    left: 14px;
+    width: 44px;
+    height: 44px;
+  }
+  #view-collection .vault-gesture {
+    bottom: 14px;
+    left: 22px;
+    font-size: 12px;
+  }
+  #view-collection .vault-switcher {
+    right: 10px;
+    bottom: 10px;
+    gap: 0;
+  }
+  #view-collection .vault-counter {
+    font-size: 12px;
+    min-width: 51px;
+  }
+  #view-collection .vault-copy {
+    padding: 12px 24px 27px;
+    align-self: stretch;
+  }
+  #view-collection .vault-title {
+    font-size: 20px;
+    margin-bottom: 17px;
+    max-width: none;
+  }
+  #view-collection .vault-rarity {
+    font-size: 13px;
+    margin-bottom: 9px;
+  }
+  #view-collection .vault-phone {
+    font-size: clamp(24px, 6.7vw, 35px);
+    line-height: 1.3;
+  }
+  #view-collection .vault-description {
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+  #view-collection .vault-valuation {
+    margin-top: 19px;
+  }
+  #view-collection .vault-valuation > span,
+  #view-collection .vault-meta {
+    font-size: 13px;
+  }
+  #view-collection .vault-price {
+    font-size: 27px;
+  }
+  #view-collection .vault-actions {
+    margin-top: 22px;
+    gap: 8px;
+  }
+  #view-collection .vault-primary {
+    flex: 1 1 auto;
+  }
+  #view-collection .vault-copy-button {
+    padding-inline: 14px;
+    border-color: #514b60;
+  }
+  #view-collection .coll-summary {
+    gap: 20px 0;
+    padding-bottom: 22px;
+  }
+  #view-collection .coll-summary .stat {
+    padding-inline: 14px;
+  }
+  #view-collection .coll-summary .stat:nth-child(odd) {
+    padding-left: 0;
+  }
+  #view-collection .coll-summary .stat-value {
+    font-size: 23px;
+  }
+  #view-collection .coll-summary .stat-label {
+    font-size: 13px;
+  }
+  #view-collection .coll-summary .stat .hint {
+    font-size: 12px;
+  }
+  #view-collection .vault-commandbar {
+    flex-wrap: wrap;
+    gap: 8px;
+    position: relative;
+    margin-bottom: 12px;
+  }
+  #view-collection .vault-commandbar .field-search {
+    flex-basis: 100%;
+  }
+  #view-collection .vault-commandbar .field-search .hint {
+    font-size: 12px;
+    max-width: 100%;
+  }
+  #view-collection .vault-filter-toggle {
+    margin-left: auto;
+  }
+  #view-collection .vault-commandbar .vault-quick-reset {
+    margin-right: auto;
+  }
+  #view-collection .vault-rarity-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 7px;
+    padding-bottom: 16px;
+  }
+  #view-collection .vault-rarity-tabs .rchip {
+    font-size: 12px;
+    min-height: 44px;
+    padding: 7px;
+    gap: 5px;
+    justify-content: center;
+  }
+  #view-collection .vault-rarity-tabs .rchip b {
+    font-size: 11px;
+    padding: 1px 4px;
+  }
+  #view-collection .vault-rarity-tabs .rchip-dot {
+    width: 4px;
+    height: 4px;
+    flex: 0 0 auto;
+  }
+  #view-collection .vault-advanced {
+    padding: 14px;
+  }
+  #view-collection .vault-advanced .toolbar {
+    gap: 12px 9px;
+  }
+  #view-collection .vault-advanced .field-label {
+    font-size: 12px;
+  }
+  #view-collection .vault-advanced .input {
+    font-size: 14px;
+  }
+  #view-collection .vault-list-head {
+    margin: 8px 0 16px;
+  }
+  #view-collection .vault-list-title {
+    font-size: 18px;
+  }
+  #view-collection .vault-list-head .result-info {
+    font-size: 12px;
+  }
+  #view-collection .ncard-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  #view-collection .ncard {
+    padding: 18px;
+  }
+  #view-collection .ncard-top {
+    margin-bottom: 15px;
+  }
+  #view-collection .vault-ticket {
+    padding: 20px;
+    border-radius: 11px;
+  }
+  #view-collection .vault-ticket .ncard-number {
+    font-size: clamp(22px, 6.3vw, 32px);
+    margin-top: 40px;
+  }
+  #view-collection .vault-ticket .vault-contact {
+    left: 21px;
+    width: 34px;
+    height: 28px;
+    top: 36%;
+  }
+  #view-collection .vault-ticket-footer {
+    font-size: 11px;
+  }
+  #view-collection .ncard-pattern {
+    min-height: 0;
+    font-size: 14px;
+  }
+  #view-collection .ncard-values {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  #view-collection .ncard-values .ncard-value {
+    font-size: 27px;
+  }
+  #view-collection .ncard-actions {
+    display: flex;
+  }
+  #view-collection .ncard-actions .btn {
+    font-size: 14px;
+  }
+  #view-collection .ncard-actions .btn:last-child:not(:first-child) {
+    flex: 0 0 auto;
+    width: auto;
+  }
+  .vault-static-card {
+    width: 64%;
+    padding: 18px;
+    max-width: 280px;
+  }
+  .vault-static-number {
+    font-size: 23px;
+    margin-top: 37px;
+  }
+  .vault-static-card .vault-contact {
+    width: 31px;
+    height: 25px;
+    left: 20px;
+  }
+  .vault-static-foot {
+    font-size: 9px;
+  }
+  .modal.vault-viewer {
+    padding: 0;
+    width: calc(100vw - 20px);
+    max-height: calc(100dvh - 24px);
+    border-radius: 14px;
+  }
+  .vault-viewer .modal-head {
+    padding: 14px 18px;
+  }
+  .vault-viewer .modal-title {
+    font-size: 14px;
+  }
+  .vault-viewer .modal-foot {
+    padding: 14px 18px;
+  }
+  .vault-viewer .modal-foot .btn {
+    width: 100%;
+    font-size: 14px;
+  }
+  .vault-viewer-scene {
+    min-height: 265px;
+  }
+  .vault-viewer-host {
+    inset: 0 0 65px;
+  }
+  .vault-viewer-controls {
+    bottom: 12px;
+    gap: 10px;
+  }
+  .vault-viewer-controls > .vault-viewer-reset {
+    font-size: 13px;
+  }
+  .vault-viewer-info {
+    padding: 10px 22px 24px;
+  }
+  .vault-viewer-rarity {
+    font-size: 13px;
+    margin-bottom: 13px;
+  }
+  .vault-viewer-number {
+    font-size: clamp(24px, 6.7vw, 32px);
+  }
+  .vault-viewer-facts {
+    gap: 18px 12px;
+    margin-top: 20px;
+  }
+  .vault-viewer-facts dd strong {
+    font-size: 25px;
+  }
+  .vault-viewer-hint {
+    margin-top: 20px;
+  }
+}
+@media (max-width: 360px) {
+  #view-collection .vault-copy {
+    padding-inline: 19px;
+  }
+  #view-collection .vault-rarity-tabs {
+    gap: 5px;
+  }
+  #view-collection .vault-rarity-tabs .rchip {
+    font-size: 11px;
+    padding-inline: 4px;
+    gap: 4px;
+  }
+  #view-collection .vault-gesture {
+    font-size: 10px;
+    left: 19px;
+  }
+  #view-collection .ncard {
+    padding: 14px;
+  }
+  #view-collection .vault-ticket {
+    padding: 17px;
+  }
+  #view-collection .vault-ticket .ncard-number {
+    font-size: 21px;
+  }
+  #view-collection .vault-ticket .vault-contact {
+    left: 18px;
+    width: 26px;
+    height: 22px;
+  }
+}
+#view-collection.vault-motion-paused .vault-ticket {
+  transform: none;
+  transition: border-color 0.15s;
+}
+@media (prefers-reduced-motion: reduce) {
+  #view-collection .vault-ticket {
+    transform: none;
+    transition: none;
+  }
+  #view-collection .vault-ticket::after,
+  #view-collection .vault-primary,
+  #view-collection .vault-secondary,
+  #view-collection .ncard {
+    transition: none;
+  }
+}
+
+/* A foil response belongs only to the highest rarity, and only to interaction. */
+#view-collection .vault-ticket.vault-finish-mythic::after {
+  background:
+    radial-gradient(
+      ellipse at var(--light-x, 12%) var(--light-y, 0%),
+      rgba(255, 239, 218, 0.32),
+      transparent 61%
+    ),
+    linear-gradient(
+      115deg,
+      transparent 22%,
+      rgba(223, 196, 165, 0.12) 42%,
+      rgba(183, 175, 229, 0.12) 52%,
+      transparent 72%
+    );
+}
+
+.vault-viewer {
+  color-scheme: dark;
+  scroll-padding-block: 88px 24px;
+}
+.vault-viewer .modal-head {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: #141520;
+  margin-bottom: 0;
+  border-bottom: 1px solid #3b3548;
+}
+.vault-viewer .modal-foot {
+  margin-top: 0;
+  border-top: 1px solid #3b3548;
+}
+.vault-viewer .modal-x {
+  margin: 0;
+  flex: 0 0 auto;
+}
+#view-collection.vault-is-empty .coll-summary,
+#view-collection.vault-is-empty .vault-commandbar,
+#view-collection.vault-is-empty .vault-rarity-tabs,
+#view-collection.vault-is-empty .vault-advanced,
+#view-collection.vault-is-empty .vault-list-head {
+  display: none;
+}
+@media (max-width: 600px) {
+  #view-collection .vault-gesture {
+    font-size: 11px;
+    max-width: calc(100% - 160px);
+  }
+  #view-collection .head-aside .btn {
+    padding-inline: 11px;
+    font-size: 13px;
+    gap: 7px;
+  }
+  #view-collection .head-aside .btn .ico {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.vault-viewer-controls > button {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+@media (max-width: 360px) {
+  .vault-viewer-controls {
+    gap: 5px;
+  }
+  .vault-viewer-controls > .vault-viewer-reset {
+    padding-inline: 9px;
+    font-size: 12px;
+    gap: 5px;
+  }
+}
+
+/* Keep the sculpture and its controls in separate spatial zones. */
+#view-collection .vault-stage > .vault-model-host {
+  inset: 12px 8px 78px;
+}
+@media (max-width: 600px) {
+  #view-collection .vault-stage > .vault-model-host {
+    inset: 0 0 62px;
+  }
+}
+@media (max-width: 600px) {
+  #view-collection .vault-gesture {
+    display: none;
+  }
+}
+@media (max-width: 360px) {
+  .vault-viewer-facts {
+    grid-template-columns: 1fr;
+  }
+  .vault-viewer-facts dd {
+    overflow-wrap: normal;
+  }
+  .vault-viewer-facts dd strong {
+    overflow-wrap: anywhere;
+  }
+}
+/* Solid local header keeps scrolled filter content from reducing clock contrast. */
+body[data-route='collection'] .topbar { background: #fff; }
+@media (max-width: 600px) {
+  .vault-static-card { width: 62%; padding: 15px; }
+  .vault-static-brand { font-size: 22px; }
+  .vault-static-brand > span { font-size: 8px; }
+  .vault-static-number { margin-top: 29px; font-size: 20px; line-height: 1.35; }
+  .vault-static-foot { margin-top: 9px; font-size: 8px; }
+  .vault-static-card .vault-contact { left: 16px; width: 26px; height: 21px; }
+}

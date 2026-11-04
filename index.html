@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#F2F4F8" />
+    <meta
+      name="description"
+      content="NUMBER TYCOON — браузерная игра о коллекционировании красивых телефонных номеров. Все номера вымышленные, деньги виртуальные."
+    />
+    <title>NUMBER TYCOON</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="css/fonts.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/collection-vault.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Перейти к содержимому</a>
+    <div class="app" id="app">
+      <nav class="nav" id="primary-nav" aria-label="Разделы игры">
+        <div class="nav-brand-row">
+          <a class="brand" href="#home" data-route="home" aria-label="NUMBER TYCOON — на главную">
+            <span class="brand-mark" aria-hidden="true"
+              ><svg viewBox="0 0 32 32" fill="none">
+                <path
+                  d="M8 5h11l5 5v17H8V5Z"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M13 12h6M13 17h6M13 22h3"
+                  stroke="currentColor"
+                  stroke-width="2.4"
+                  stroke-linecap="round"
+                /></svg
+            ></span>
+            <span class="brand-text">number<span>tycoon</span></span>
+          </a>
+          <button type="button" class="icon-btn nav-close" id="nav-close" aria-label="Закрыть меню">
+            <span data-icon="close"></span>
+          </button>
+        </div>
+        <div class="nav-primary">
+          <a class="nav-link" href="#home" data-route="home"
+            ><span class="nav-ico" data-icon="home"></span><span class="nav-label">Генератор</span
+            ><span class="nav-badge" hidden></span
+          ></a>
+          <a class="nav-link" href="#shop" data-route="shop"
+            ><span class="nav-ico" data-icon="shop"></span
+            ><span class="nav-label">Магазин карт</span><span class="nav-badge" hidden></span
+          ></a>
+          <a class="nav-link" href="#collection" data-route="collection"
+            ><span class="nav-ico" data-icon="collection"></span
+            ><span class="nav-label">Коллекция</span><span class="nav-badge" hidden></span
+          ></a>
+          <a class="nav-link" href="#bank" data-route="bank"
+            ><span class="nav-ico" data-icon="bank"></span><span class="nav-label">Банк</span
+            ><span class="nav-badge" hidden></span
+          ></a>
+        </div>
+        <div class="nav-secondary">
+          <a class="nav-link" href="#stats" data-route="stats"
+            ><span class="nav-ico" data-icon="stats"></span><span class="nav-label">Статистика</span
+            ><span class="nav-badge" hidden></span
+          ></a>
+          <a class="nav-link" href="#achievements" data-route="achievements"
+            ><span class="nav-ico" data-icon="achievements"></span
+            ><span class="nav-label">Достижения</span><span class="nav-badge" hidden></span
+          ></a>
+          <a class="nav-link nav-settings" href="#settings" data-route="settings"
+            ><span class="nav-ico" data-icon="settings"></span
+            ><span class="nav-label">Настройки</span><span class="nav-badge" hidden></span
+          ></a>
+        </div>
+        <div class="nav-bottom">
+          <div class="nav-object" aria-hidden="true">
+            <svg viewBox="0 0 120 90" fill="none">
+              <path d="m42 16 31 5 13 17-10 41-44-9 10-54Z" fill="#DFE7FF" stroke="#A8BAF1" />
+              <path d="m33 11 34 3 13 16-5 43-49-5 7-57Z" fill="#FFFFFF" stroke="#BAC7EB" />
+              <rect
+                x="41"
+                y="35"
+                width="21"
+                height="21"
+                rx="5"
+                transform="rotate(5 41 35)"
+                fill="#5976EB"
+              />
+              <path d="m47 39-1 14m10-13-1 14m-12-8 16 1" stroke="#CFDAFF" />
+            </svg>
+          </div>
+          <p class="nav-footer-title">Большие находки<br />начинаются с цифр.</p>
+          <p class="nav-note">Все номера вымышленные (+000).<br />Деньги в игре виртуальные.</p>
+        </div>
+      </nav>
+
+      <header class="topbar">
+        <a class="mobile-brand" href="#home" data-route="home" aria-label="На главную"
+          ><span class="brand-mark" aria-hidden="true">n.</span></a
+        >
+        <div class="topbar-context">
+          <p class="context-title" id="context-title">Генератор</p>
+          <span class="context-sub">Ваше игровое пространство</span>
+        </div>
+        <div class="tb-clock" title="Игровое время: 1 день = 60 секунд, пока вкладка открыта">
+          <span class="tb-clock-ico" data-icon="clock"></span
+          ><span class="mono" id="tb-clock-text">День 1 · 09:00</span>
+          <span class="tb-daybar" aria-hidden="true"><span id="tb-daybar"></span></span>
+        </div>
+        <div class="tb-money">
+          <div class="tb-balance" aria-live="off">
+            <span class="tb-label">Баланс</span
+            ><span class="mono tb-balance-value" id="tb-balance-value">500,00 £</span
+            ><span class="tb-delta" id="tb-delta" aria-hidden="true"></span>
+          </div>
+          <span class="tb-networth mono" id="tb-networth">Капитал 500,00 £</span>
+        </div>
+        <div class="tb-actions">
+          <button type="button" class="tb-profile" id="tb-profile" aria-label="Профиль игрока">
+            <span class="tb-avatar" id="tb-avatar" aria-hidden="true">И</span
+            ><span class="tb-name" id="tb-name">Игрок</span
+            ><span class="profile-arrow" aria-hidden="true"><span data-icon="chevron"></span></span>
+          </button>
+        </div>
+      </header>
+
+      <main class="main" id="main" tabindex="-1">
+        <section class="view" id="view-home" aria-label="Главная"></section>
+        <section class="view" id="view-shop" aria-label="Магазин карт" hidden></section>
+        <section class="view" id="view-collection" aria-label="Коллекция" hidden></section>
+        <section class="view" id="view-bank" aria-label="Банк" hidden></section>
+        <section class="view" id="view-stats" aria-label="Статистика" hidden></section>
+        <section class="view" id="view-achievements" aria-label="Достижения" hidden></section>
+        <section class="view" id="view-settings" aria-label="Настройки" hidden></section>
+        <noscript><p class="noscript">Для игры нужен включённый JavaScript.</p></noscript>
+        <footer class="workspace-footer">
+          <span>NUMBER TYCOON</span><span>Игра о ценности сочетаний.</span
+          ><span>+000 · Только вымышленные номера</span>
+        </footer>
+      </main>
+      <nav class="mobilebar" id="mobilebar" aria-label="Быстрая навигация">
+        <a href="#home" data-route="home"><span data-icon="home"></span><span>Генератор</span></a>
+        <a href="#shop" data-route="shop"><span data-icon="shop"></span><span>Магазин</span></a>
+        <a href="#collection" data-route="collection"
+          ><span data-icon="collection"></span><span>Коллекция</span></a
+        >
+        <a href="#bank" data-route="bank"><span data-icon="bank"></span><span>Банк</span></a>
+        <button type="button" id="nav-more" aria-expanded="false" aria-controls="primary-nav">
+          <svg class="ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <circle cx="5" cy="12" r="1.8" />
+            <circle cx="12" cy="12" r="1.8" />
+            <circle cx="19" cy="12" r="1.8" /></svg
+          ><span>Ещё</span>
+        </button>
+      </nav>
+      <div class="nav-scrim" id="nav-scrim" hidden></div>
+    </div>
+    <div class="toasts" id="toasts" aria-live="polite" aria-relevant="additions"></div>
+    <div id="modal-root"></div>
+    <div class="sr-only" id="sr-status" aria-live="polite"></div>
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/number-generator.js"></script>
+    <script src="js/economy.js"></script>
+    <script src="js/statistics.js"></script>
+    <script src="js/achievements.js"></script>
+    <script src="js/collection.js"></script>
+    <script src="js/bank.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/views/home-view.js"></script>
+    <script src="js/views/shop-view.js"></script>
+    <script src="js/views/collection-view.js"></script>
+    <script src="js/views/bank-view.js"></script>
+    <script src="js/views/stats-view.js"></script>
+    <script src="js/views/achievements-view.js"></script>
+    <script src="js/views/settings-view.js"></script>
+    <script src="js/vendor/three.min.js"></script>
+    <script src="js/material-scene.js"></script>
+    <script src="js/redesign.js"></script>
+    <script src="js/collection-scene.js"></script>
+    <script src="js/collection-vault.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
